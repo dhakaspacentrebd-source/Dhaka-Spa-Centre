@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0C0E" />
+      <stop offset="50%" stop-color="#141619" />
+      <stop offset="100%" stop-color="#0B0C0E" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DFC286" />
+      <stop offset="50%" stop-color="#C5A059" />
+      <stop offset="100%" stop-color="#9E7B3B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)" />
+
+  <!-- Outer Luxury Border -->
+  <rect x="40" y="40" width="1120" height="550" rx="4" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.3" />
+  <rect x="52" y="52" width="1096" height="526" rx="2" fill="none" stroke="#262A30" stroke-width="1" />
+
+  <!-- Center Emblem (Scale 1.8) -->
+  <g transform="translate(600, 180) scale(1.6) translate(-60, -60)">
+    <circle cx="60" cy="60" r="54" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6" />
+    <circle cx="60" cy="60" r="48" stroke="url(#goldGrad)" stroke-width="2" />
+    <path d="M60 22 C64 36 67 48 60 76 C53 48 56 36 60 22 Z" fill="url(#goldGrad)" opacity="0.95" />
+    <path d="M60 76 C46 72 32 60 30 46 C38 43 49 52 60 76 Z" fill="url(#goldGrad)" opacity="0.8" />
+    <path d="M60 76 C74 72 88 60 90 46 C82 43 71 52 60 76 Z" fill="url(#goldGrad)" opacity="0.8" />
+    <path d="M60 78 C40 76 25 67 22 55 C32 54 44 65 60 78 Z" fill="url(#goldGrad)" opacity="0.6" />
+    <path d="M60 78 C80 76 95 67 98 55 C88 54 76 65 60 78 Z" fill="url(#goldGrad)" opacity="0.6" />
+    <path d="M38 84 Q60 96 82 84 Q60 91 38 84 Z" fill="url(#goldGrad)" />
+    <circle cx="60" cy="95" r="2.5" fill="url(#goldGrad)" />
+  </g>
+
+  <!-- Typography -->
+  <text x="600" y="340" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="44" font-weight="600" letter-spacing="8" fill="#F7F5F0">
+    DHAKA SPA CENTRE
+  </text>
+
+  <text x="600" y="385" text-anchor="middle" font-family="'Inter', sans-serif" font-size="16" font-weight="500" letter-spacing="6" fill="#C5A059">
+    GULSHAN 2 • DHAKA • BANGLADESH
+  </text>
+
+  <line x1="450" y1="420" x2="750" y2="420" stroke="url(#goldGrad)" stroke-width="1" stroke-opacity="0.4" />
+
+  <text x="600" y="465" text-anchor="middle" font-family="'Inter', sans-serif" font-size="18" font-weight="300" letter-spacing="2" fill="#9E9A90">
+    Premium Spa &amp; Massage Experience • 12 Verified Therapies
+  </text>
+
+  <text x="600" y="505" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" font-weight="400" letter-spacing="3" fill="#C5A059">
+    45 KAMAL ATATURK AVENUE • 10:00 AM – 10:00 PM • 01343430498
+  </text>
+</svg>
