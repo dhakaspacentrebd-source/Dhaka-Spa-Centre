@@ -8,6 +8,8 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { PageIntro, BookingCTA, JsonLd } from "@/components/Sections";
 import { constructMetadata } from "@/lib/seo";
 import { generateFAQSchema } from "@/lib/schema";
+import { QuickFacts } from "@/components/QuickFacts";
+import { VerifiedMap } from "@/components/VerifiedMap";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return LOCATIONS.map((l) => ({ location: l.slug }));
@@ -69,7 +71,7 @@ export default async function Page({
             <a href={b.contact.telLink}>{b.contact.phoneFormatted}</a>
           </p>
           <p>
-            <a href={b.mapLink}>Search this address in Google Maps ↗</a>
+            <a href={b.mapLink}>Open our Gulshan 2 Google Maps profile ↗</a>
           </p>
           <p>
             Compare the <Link href="/prices">complete price menu</Link>,{" "}
@@ -82,6 +84,7 @@ export default async function Page({
           <h2>Questions about your journey</h2>
           <FAQAccordion items={faqs} />
         </div>
+        <QuickFacts />
         <div className="section-heading">
           <div>
             <span className="eyebrow">TREATMENTS TO CONSIDER</span>
@@ -99,6 +102,7 @@ export default async function Page({
           listed physical address in Gulshan 2.
         </p>
       </section>
+      {l.slug === "spa-in-gulshan-2" && <VerifiedMap />}
       <JsonLd data={generateFAQSchema(faqs)} />
       <BookingCTA />
     </>

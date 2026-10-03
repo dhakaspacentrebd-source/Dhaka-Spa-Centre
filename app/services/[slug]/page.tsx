@@ -12,6 +12,8 @@ import { BookingSelector } from "@/components/BookingSelector";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { constructMetadata } from "@/lib/seo";
 import { generateServiceSchema, generateFAQSchema } from "@/lib/schema";
+import { SESSION_GUIDES } from "@/data/session-guides";
+import { QuickFacts } from "@/components/QuickFacts";
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
 }
@@ -40,6 +42,7 @@ export default async function Page({
     permanentRedirect("/services/aromatherapy-massage");
   const s = getServiceBySlug(slug);
   if (!s) notFound();
+  const guide = SESSION_GUIDES[s.slug];
   return (
     <>
       <PageIntro
@@ -59,8 +62,9 @@ export default async function Page({
                 src={s.image}
                 alt={s.imageAlt}
                 fill
-                priority
-                sizes="(max-width:760px) 100vw,50vw"
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width:760px) calc(100vw - 44px), (max-width:1392px) calc((100vw - 177px) / 2), 608px"
               />
             </div>
             <p className="photo-caption">
@@ -78,6 +82,16 @@ export default async function Page({
           </div>
         </div>
         <div className="prose">
+          {guide && <section>
+            <h2>Pressure, technique and products</h2>
+            <p>{guide.pressure}</p><p>{guide.products}</p>
+            <h2>Duration and preparation</h2>
+            <p>The listed starting duration is {s.duration}. Check the duration options above; where a price says “Enquire”, ask for a quote. Confirm whether changing or consultation time is included.</p>
+            <p>{guide.preparation}</p>
+            <h2>After your session</h2><p>{guide.aftercare}</p>
+            <h2>When to check suitability first</h2><p>{guide.safety}</p>
+            <p>Read our <Link href="/safety">safety, hygiene and consent questions</Link> before booking. For health-related uncertainty, consult a qualified healthcare professional. The <a href="https://www.nccih.nih.gov/health/massage-therapy-what-you-need-to-know">NCCIH massage overview</a> describes general safety considerations; these spa guides are not medical advice.</p>
+          </section>}
           <h2>Make the session your own</h2>
           <ul>
             {s.expectations.map((p) => (
@@ -98,6 +112,7 @@ export default async function Page({
           <h2>Before you book</h2>
           <FAQAccordion items={s.faqs} />
         </div>
+        <QuickFacts />
         <div className="section-heading">
           <h2>Continue your discovery.</h2>
           <Link href="/services">All treatments ↗</Link>

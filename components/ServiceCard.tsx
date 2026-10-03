@@ -17,7 +17,7 @@ export function ServiceCard({
           src={s.image}
           alt={s.imageAlt}
           fill
-          sizes="(max-width:650px) 100vw,(max-width:1000px) 50vw,33vw"
+          sizes="(max-width:500px) calc(100vw - 44px), (max-width:760px) calc((100vw - 69px) / 2), (max-width:1392px) calc((100vw - 176px) / 3), 405px"
           priority={priority}
         />
         <span aria-hidden="true">

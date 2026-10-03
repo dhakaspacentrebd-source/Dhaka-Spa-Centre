@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageIntro, BookingCTA } from "@/components/Sections";
 import { constructMetadata } from "@/lib/seo";
+import { BUSINESS_INFO as b } from "@/data/business";
 export const metadata = constructMetadata({
   title: "Our Story & Approach to Wellness",
   description:
@@ -24,7 +25,7 @@ export default function Page() {
               src="/images/dhaka-spa-hero.webp"
               alt="Illustrative warm wood spa interior"
               fill
-              sizes="(max-width:760px) 100vw,50vw"
+              sizes="(max-width:760px) calc(100vw - 44px), (max-width:1392px) calc((100vw - 177px) / 2), 608px"
             />
           </div>
           <div className="detail-info">
@@ -42,8 +43,7 @@ export default function Page() {
               and time directly with the team before travelling.
             </p>
             <p>
-              Our address is House # 1/A, Road 90, Gulshan 2, Dhaka 1212,
-              Bangladesh. We welcome enquiries from across Dhaka, including
+              Our address is {b.address.formatted}. We welcome enquiries from across Dhaka, including
               Banani and Baridhara.
             </p>
             <Link className="text-link" href="/services">
@@ -54,6 +54,11 @@ export default function Page() {
               added to the gallery.
             </p>
           </div>
+        </div>
+        <div className="prose section-gap">
+          <h2>Ask the questions that matter to you</h2>
+          <p>Before booking, discuss your preferred pressure, any product sensitivities, clothing and draping, and the areas you want avoided. Confirm the appointment time and total charge. Our <Link href="/safety">preparation, safety and consent guide</Link> explains useful questions; detailed cleaning procedures and written business policies await owner confirmation.</p>
+          <p>Verified team biographies, qualifications and business-history details have not yet been supplied for publication. We do not claim certifications or a particular number of years of experience. <Link href="/contact">Contact the team</Link> or call <a href={b.contact.telLink}>{b.contact.phoneFormatted}</a> to discuss your visit.</p>
         </div>
       </section>
       <BookingCTA />

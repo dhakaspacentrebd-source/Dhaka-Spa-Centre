@@ -24,14 +24,16 @@ export default function Page() {
         path="/gallery"
       />
       <section className="wrap page-body gallery-grid">
-        {images.map(([s, t]) => (
+        {images.map(([s, t], i) => (
           <figure key={s}>
             <div className="gallery-item">
               <Image
                 src={"/images/dhaka-spa-" + s + ".webp"}
                 alt={"Illustrative wellness image: " + t}
                 fill
-                sizes="(max-width:500px) 100vw, (max-width:760px) 50vw,70vw"
+                sizes={i % 3 === 2
+                  ? "(max-width:760px) calc(100vw - 44px), (max-width:1392px) calc(100vw - 112px), 1280px"
+                  : "(max-width:500px) calc(100vw - 44px), (max-width:760px) calc((100vw - 74px) / 2), (max-width:1392px) calc((100vw - 142px) / 2), 625px"}
               />
             </div>
             <figcaption>{t} · Illustrative imagery</figcaption>

@@ -4,6 +4,7 @@ import { BLOG_POSTS, getBlogPostBySlug } from "@/data/blog";
 import { PageIntro, BookingCTA, JsonLd } from "@/components/Sections";
 import { constructMetadata } from "@/lib/seo";
 import { generateArticleSchema } from "@/lib/schema";
+import { EDITORIAL_GUIDES } from "@/data/editorial-guides";
 export function generateStaticParams() {
   return BLOG_POSTS.map((p) => ({ slug: p.slug }));
 }
@@ -31,6 +32,8 @@ export default async function Page({
   const { slug } = await params;
   const p = getBlogPostBySlug(slug);
   if (!p) notFound();
+  const sections = [...p.content, ...(EDITORIAL_GUIDES[p.slug] || [])];
+  const readingMinutes = Math.ceil(sections.reduce((count, section) => count + section.paragraphs.join(" ").split(/\s+/).length, 0) / 200);
   return (
     <>
       <PageIntro
@@ -41,9 +44,9 @@ export default async function Page({
       />
       <article className="wrap prose">
         <span className="eyebrow">
-          {p.author} · {p.readTime}
+          {p.author} · approximately {readingMinutes} min read
         </span>
-        {p.content.map((s) => (
+        {sections.map((s) => (
           <section key={s.heading}>
             <h2>{s.heading}</h2>
             {s.paragraphs.map((t) => (
@@ -51,6 +54,8 @@ export default async function Page({
             ))}
           </section>
         ))}
+        <h2>Safety and source notes</h2>
+        <p>These articles compare relaxation experiences and help plan a visit. They do not diagnose a condition or prescribe a treatment schedule. Read our <Link href="/safety">preparation and safety guide</Link> and the <a href="https://www.nccih.nih.gov/health/massage-therapy-what-you-need-to-know">NCCIH overview of massage safety</a> for health-related context. Business-specific policies and session availability should be confirmed directly.</p>
         <h2>Put your plans together</h2>
         <p>
           Compare <Link href="/services/thai-massage">Thai massage</Link>,{" "}

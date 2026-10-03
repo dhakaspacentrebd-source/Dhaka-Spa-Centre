@@ -73,7 +73,7 @@ export function BookingCTA() {
     </section>
   );
 }
-export function LocationBlock() {
+export function LocationBlock({ showMap = false }: { showMap?: boolean } = {}) {
   return (
     <section className="location-block wrap">
       <div>
@@ -87,6 +87,18 @@ export function LocationBlock() {
         <a className="text-link" href={b.mapLink}>
           Find directions <ArrowUpRight size={16} />
         </a>
+        {showMap && (
+          <iframe
+            src={b.mapEmbedUrl}
+            title="Dhaka Spa Centre location in Gulshan 2, Dhaka"
+            width="600"
+            height="450"
+            className="verified-map location-map"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        )}
       </div>
       <div className="address-card">
         <MapPin size={30} strokeWidth={1} />

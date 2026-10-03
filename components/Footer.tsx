@@ -37,6 +37,8 @@ export function Footer() {
             ["Questions", "faq"],
             ["Offers", "offers"],
             ["Contact", "contact"],
+            ["Safety & consent", "safety"],
+            ["Business facts", "ai-facts"],
           ].map(([n, s]) => (
             <Link key={s} href={"/" + s}>
               {n}

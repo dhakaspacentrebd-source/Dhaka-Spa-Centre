@@ -7,6 +7,8 @@ export interface SEOProps {
   description: string;
   path?: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   type?: "website" | "article";
   noIndex?: boolean;
 }
@@ -16,6 +18,8 @@ export function constructMetadata({
   description,
   path = "",
   image = "/brand/og-image.webp",
+  imageWidth = 1376,
+  imageHeight = 768,
   type = "website",
   noIndex = false,
 }: SEOProps): Metadata {
@@ -58,8 +62,8 @@ export function constructMetadata({
       images: [
         {
           url: image,
-          width: 1200,
-          height: 630,
+          width: imageWidth,
+          height: imageHeight,
           alt: `${fullTitle}`,
         },
       ],

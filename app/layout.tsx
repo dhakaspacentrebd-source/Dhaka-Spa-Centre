@@ -10,7 +10,6 @@ import { constructMetadata } from "@/lib/seo";
 import {
   generateLocalBusinessSchema,
   generateWebSiteSchema,
-  generateOrganizationSchema,
 } from "@/lib/schema";
 const serif = Playfair_Display({
   subsets: ["latin"],
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
   ...constructMetadata({
     title: "Dhaka Spa Centre | Thai Spa & Massage in Gulshan 2",
     description:
-      "Make time for Thai massage, aromatherapy and thoughtful wellness in Gulshan 2, Dhaka. Explore treatments, compare guide prices and enquire on WhatsApp.",
+      "Explore Thai spa and massage at Dhaka Spa Centre in Gulshan 2, Dhaka. Compare treatments and guide prices, then call or enquire on WhatsApp to book.",
   }),
   icons: { icon: "/favicon.svg", apple: "/apple-touch-icon.png" },
   verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION },
@@ -54,7 +53,6 @@ export default function RootLayout({
         <Analytics />
         <JsonLd data={generateLocalBusinessSchema()} />
         <JsonLd data={generateWebSiteSchema()} />
-        <JsonLd data={generateOrganizationSchema()} />
       </body>
     </html>
   );

@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/privacy-policy",
     "/terms",
+    "/ai-facts",
+    "/safety",
     ...SERVICES.map((s) => "/services/" + s.slug),
     ...LOCATIONS.map((l) => "/" + l.slug),
     ...BLOG_POSTS.map((p) => "/blog/" + p.slug),

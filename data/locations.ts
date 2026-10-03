@@ -72,7 +72,7 @@ export const LOCATIONS = [
     blocks: [
       [
         "Arrive at the right place",
-        "Use the complete house and road number, not just the business name, when searching for directions. Our map link searches the supplied address. If you need help identifying the entrance, contact the team before arriving.",
+        "Use the complete house and road number, not just the business name, when searching for directions. Our map link opens the supplied Google Business Profile, and the map below shows the owner-supplied location. If you need help identifying the entrance, contact the team before arriving.",
       ],
       [
         "Before you set off",

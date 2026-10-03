@@ -1,6 +1,7 @@
 import { BUSINESS_INFO as b } from "@/data/business";
 import { Service } from "@/data/services";
 import { BlogPost } from "@/data/blog";
+import { VERIFIED_PRICE_SLUGS } from "@/data/verified-prices";
 export function generateLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
@@ -9,16 +10,18 @@ export function generateLocalBusinessSchema() {
     name: b.name,
     url: b.websiteUrl,
     telephone: b.contact.phone,
+    logo: b.websiteUrl + "/brand/logo.svg",
+    hasMap: b.googleBusinessProfileUrl,
     address: {
       "@type": "PostalAddress",
-      streetAddress: b.address.street,
-      addressLocality: "Gulshan 2",
-      addressRegion: "Dhaka",
-      postalCode: "1212",
+      streetAddress: b.address.street + ", " + b.address.neighborhood,
+      addressLocality: b.address.city,
+      addressRegion: b.address.city,
+      postalCode: b.address.postalCode,
       addressCountry: "BD",
     },
-    areaServed: ["Gulshan 2", "Gulshan", "Banani", "Baridhara", "Dhaka"],
-    sameAs: [b.telegramUrl],
+    areaServed: b.serviceAreas,
+    sameAs: [b.telegramUrl, b.googleBusinessProfileUrl],
   };
 }
 export function generateWebSiteSchema() {
@@ -29,17 +32,6 @@ export function generateWebSiteSchema() {
     url: b.websiteUrl,
     name: b.name,
     publisher: { "@id": b.websiteUrl + "/#business" },
-  };
-}
-export function generateOrganizationSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": b.websiteUrl + "/#organization",
-    name: b.name,
-    url: b.websiteUrl,
-    logo: b.websiteUrl + "/brand/logo.svg",
-    telephone: b.contact.phone,
   };
 }
 export function generateBreadcrumbSchema(
@@ -60,11 +52,22 @@ export function generateServiceSchema(s: Service) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": b.websiteUrl + "/services/" + s.slug + "#service",
     name: s.name,
     description: s.shortDescription,
     url: b.websiteUrl + "/services/" + s.slug,
     provider: { "@id": b.websiteUrl + "/#business" },
     areaServed: "Gulshan 2, Dhaka",
+    ...(VERIFIED_PRICE_SLUGS.includes(s.slug) ? {
+      offers: {
+        "@type": "Offer",
+        name: s.name + " — 60-minute guide price; confirm before booking",
+        price: s.numericPrice,
+        priceCurrency: s.currency,
+        url: b.websiteUrl + "/services/" + s.slug,
+        seller: { "@id": b.websiteUrl + "/#business" },
+      },
+    } : {}),
   };
 }
 export function generateFAQSchema(
@@ -83,10 +86,13 @@ export function generateFAQSchema(
 export function generateArticleSchema(p: BlogPost) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": b.websiteUrl + "/blog/" + p.slug + "#article",
     headline: p.title,
     description: p.excerpt,
-    author: { "@type": "Organization", name: b.name },
+    author: { "@id": b.websiteUrl + "/#business" },
+    publisher: { "@id": b.websiteUrl + "/#business" },
+    image: b.websiteUrl + p.image,
     mainEntityOfPage: b.websiteUrl + "/blog/" + p.slug,
   };
 }

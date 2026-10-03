@@ -15,16 +15,17 @@ export default function Home() {
           src="/images/dhaka-spa-hero.webp"
           alt="Illustrative spa interior with warm wood, soft lighting and a treatment bed"
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="100vw"
         />
         <div className="hero-shade" />
         <div className="hero-content">
           <span className="eyebrow">DHAKA SPA CENTRE · GULSHAN 2</span>
           <h1>
-            A quieter world.
+            Dhaka Spa Centre.
             <br />
-            <em>A renewed you.</em>
+            <em>Gulshan 2, Dhaka.</em>
           </h1>
           <p>
             Thai spa & massage in Gulshan 2, Dhaka.
@@ -159,7 +160,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <LocationBlock />
+      <LocationBlock showMap />
       <section className="faq-section wrap">
         <div>
           <span className="eyebrow">BEFORE YOUR VISIT</span>

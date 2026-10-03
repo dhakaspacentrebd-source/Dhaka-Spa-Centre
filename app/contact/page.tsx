@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { FAQS } from "@/data/faq";
 import { constructMetadata } from "@/lib/seo";
+import { VerifiedMap } from "@/components/VerifiedMap";
 export const metadata = constructMetadata({
   title: "Contact & Book Your Gulshan 2 Visit",
   description:
@@ -46,6 +47,7 @@ export default function Page() {
         </div>
         <ContactForm />
       </section>
+      <VerifiedMap />
       <LocationBlock />
     </>
   );

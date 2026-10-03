@@ -9,6 +9,10 @@ export const metadata = constructMetadata({
     "Find answers about choosing a massage, booking on WhatsApp, guide prices and visiting Dhaka Spa Centre in Gulshan 2.",
   path: "/faq",
 });
+const categoryLabels: Record<string, string> = {
+  Treatments: "Services", Pricing: "Prices", Preparation: "First Visit",
+};
+const categoryOf = (item: { category: string }) => categoryLabels[item.category] || item.category;
 export default function Page() {
   return (
     <>
@@ -19,7 +23,12 @@ export default function Page() {
         path="/faq"
       />
       <section className="wrap narrow page-body">
-        <FAQAccordion items={FAQS} />
+        {Array.from(new Set(FAQS.map(categoryOf))).map(category => (
+          <section className="section-gap" key={category}>
+            <h2>{category}</h2>
+            <FAQAccordion items={FAQS.filter(item => categoryOf(item) === category)} />
+          </section>
+        ))}
       </section>
       <JsonLd data={generateFAQSchema(FAQS)} />
       <BookingCTA />

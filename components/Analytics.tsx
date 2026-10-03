@@ -17,16 +17,17 @@ export function Analytics() {
     if (path.startsWith("/services/")) track("service_view");
     if (path === "/prices") track("price_view");
     const click = (e: MouseEvent) => {
+      if (!e.isTrusted) return;
       const target = e.target instanceof Element ? e.target.closest("a") : null;
       if (!target) return;
       const href = target.getAttribute("href") || "";
       const event = href.includes("wa.me")
         ? "whatsapp_click"
         : href.startsWith("tel:")
-          ? "phone_click"
+          ? "call_click"
           : href.includes("t.me/")
             ? "telegram_click"
-            : href.includes("google.com/maps")
+            : href.includes("google.com/maps") || href.startsWith("https://share.google/") || href.startsWith("https://maps.app.goo.gl/")
               ? "directions_click"
               : null;
       if (event) {

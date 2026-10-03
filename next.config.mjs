@@ -22,6 +22,8 @@ const nextConfig = {
   }],
   images: {
     formats: ["image/avif", "image/webp"],
+    // The largest visible source is 1376px; avoid advertising 3840px copies.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1376],
   },
   headers: async () => [
     {
