@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageIntro, BookingCTA } from "@/components/Sections";
 import { constructMetadata } from "@/lib/seo";
 
-export const metadata = constructMetadata({title:"Massage Preparation, Safety & Consent Questions",description:"Plan a comfortable spa visit: discuss pressure, product sensitivities, consent and hygiene questions before booking Dhaka Spa Centre in Gulshan 2.",path:"/safety"});
+export const metadata = constructMetadata({title:"Massage Preparation, Safety & Consent",description:"Plan a comfortable spa visit: discuss pressure, product sensitivities, consent and hygiene questions before booking Dhaka Spa Centre in Gulshan 2.",path:"/safety"});
 export default function Page(){return <>
   <PageIntro eyebrow="Before your appointment" title="Preparation, safety and consent" description="Practical questions to discuss before a session. This guide does not claim a verified staff qualification or an owner-approved hygiene policy." path="/safety" />
   <article className="wrap prose">

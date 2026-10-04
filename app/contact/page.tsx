@@ -36,7 +36,7 @@ export default function Page() {
             </a>
           </div>
           <p>
-            Please confirm opening hours and your appointment before travelling.
+            {b.openingHours.display} Please confirm holiday hours and your appointment before travelling.
           </p>
           <a className="button outline" href={b.mapLink}>
             Directions to Road 90 ↗

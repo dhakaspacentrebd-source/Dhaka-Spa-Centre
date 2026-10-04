@@ -1,3 +1,4 @@
+import { BUSINESS_INFO as b } from "./business";
 export const LOCATIONS = [
   {
     slug: "spa-in-dhaka",
@@ -91,7 +92,7 @@ export const LOCATIONS = [
       ],
       [
         "Are opening hours published?",
-        "Opening hours have not been confirmed for publication. Ask the team for availability on your chosen day.",
+        b.openingHours.display + " Confirm holiday hours and appointment availability with the team.",
       ],
     ],
   },

@@ -13,6 +13,7 @@ export default function Home() {
       <section className="hero">
         <Image
           src="/images/dhaka-spa-hero.webp"
+          quality={65}
           alt="Illustrative spa interior with warm wood, soft lighting and a treatment bed"
           fill
           loading="eager"

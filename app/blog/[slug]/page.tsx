@@ -17,7 +17,7 @@ export async function generateMetadata({
   const p = getBlogPostBySlug(slug);
   return p
     ? constructMetadata({
-        title: p.title,
+        title: p.slug === "massage-types-explained" ? "Thai, Swedish & Deep Tissue Compared" : p.title,
         description: p.excerpt,
         path: "/blog/" + p.slug,
         type: "article",

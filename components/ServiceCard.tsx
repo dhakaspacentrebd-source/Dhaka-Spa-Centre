@@ -15,6 +15,7 @@ export function ServiceCard({
       <Link className="card-image" href={"/services/" + s.slug}>
         <Image
           src={s.image}
+          quality={s.slug === "thai-massage" ? 65 : 75}
           alt={s.imageAlt}
           fill
           sizes="(max-width:500px) calc(100vw - 44px), (max-width:760px) calc((100vw - 69px) / 2), (max-width:1392px) calc((100vw - 176px) / 3), 405px"

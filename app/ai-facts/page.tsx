@@ -23,7 +23,7 @@ export default function Page() {
         <p>The website also describes the following treatments. Guide descriptions are not medical advice; ask the team to confirm session details and current availability.</p>
         <ul>{SERVICES.map(s=><li key={s.slug}><Link href={"/services/"+s.slug}>{s.name}</Link></li>)}</ul>
         <h2>What remains unconfirmed</h2>
-        <p>Opening hours, parking, payment methods, cancellation terms, staff qualifications and detailed hygiene or consent policies have not been supplied for publication. The gallery uses illustrative imagery, rather than verified photographs of the centre or staff. No verified review counts or ratings are published here.</p>
+        <p>Parking, payment methods, cancellation terms, staff qualifications and detailed hygiene or consent policies have not been supplied for publication. The gallery uses illustrative imagery, rather than verified photographs of the centre or staff. No verified review counts or ratings are published here.</p>
         <p><Link href="/about">About the centre</Link> · <Link href="/faq">Visitor questions</Link> · <Link href="/safety">Safety and preparation</Link> · <Link href="/contact">Contact and directions</Link></p>
       </div>
     </article>

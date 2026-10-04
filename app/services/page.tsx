@@ -18,6 +18,7 @@ export default function Page() {
         path="/services"
       />
       <section className="page-body wrap">
+        <h2 className="sr-only">Massage and spa treatments</h2>
         <div className="service-grid">
           {SERVICES.map((s) => (
             <ServiceCard key={s.slug} service={s} />

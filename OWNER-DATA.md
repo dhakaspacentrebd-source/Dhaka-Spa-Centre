@@ -4,7 +4,7 @@ Only verified values should be added to `data/business.ts`, `data/services.ts` a
 
 | Placeholder | What to supply | Publication destination |
 | --- | --- | --- |
-| `{{OPENING_HOURS}}` | Actual hours for each weekday and holiday arrangements | Central business data, Quick Facts, contact, facts, llms, schema |
+| `{{HOLIDAY_HOURS}}` | Exceptions to the published weekly Google Business Profile hours | Central business data and contact |
 | `{{GBP_REVIEW_URL}}` | Owner-confirmed direct review link | Only add a review CTA if appropriate |
 | `{{REAL_PHOTOS}}` | Original premises/staff photographs with rights and accurate descriptions | Gallery, about and page images |
 | `{{TESTIMONIALS}}` | Genuine quotes, permission and attribution | Visible testimonials only after verification; no assumed rating schema |
@@ -22,11 +22,13 @@ Only verified values should be added to `data/business.ts`, `data/services.ts` a
 
 `{{GBP_URL}}` is resolved: https://share.google/LzwDmmK6zuq0frEmI. The supplied Maps embed is stored centrally. The embed's coordinate-looking parameters are not asserted as verified schema `geo`.
 
-Six owner-confirmed 60-minute guide prices are identified in `data/verified-prices.ts`; figures come from the existing central menu, not a second rate table. Other inherited initial guide prices are preserved and require owner review. No opening hours, staff credentials, rating or review count are asserted.
+Six owner-confirmed 60-minute guide prices are identified in `data/verified-prices.ts`; figures come from the existing central menu, not a second rate table. Other inherited initial guide prices are preserved and require owner review. Weekly hours now match the published Google Business Profile: Saturday–Thursday 10:00–22:00 and Friday 14:00–22:00, Asia/Dhaka. Holiday arrangements still need confirmation. Staff credentials, ratings and review counts are not asserted.
 
 ## Analytics state
 
-No GA4 Measurement ID was supplied. No Google analytics tag is installed, and event tracking is disabled by default (`NEXT_PUBLIC_ENABLE_ANALYTICS=false`). `NEXT_PUBLIC_GA_ID` remains reserved, not an active integration. Turning on the event flag alone does not deliver events to GA4: a real consumer/provider must first be configured. The delegated event names are `whatsapp_click`, `call_click`, `directions_click`, `telegram_click`; synthetic clicks are ignored. Form text and health details are not sent by this tracker. Avoid installing a second tag if a provider is later added through Netlify or a tag manager.
+No GA4 Measurement ID was supplied. The GA4 provider integration is ready but remains disabled until a real `NEXT_PUBLIC_GA_ID` and `NEXT_PUBLIC_ENABLE_ANALYTICS=true` are configured and redeployed. Preview deployments never load it. Events include manual SPA `page_view`, `service_view`, `price_view`, `whatsapp_click`, `booking_click`, `call_click`, `directions_click` and `telegram_click`; synthetic clicks are ignored. Form text and message URLs are not sent by this tracker. Query strings and fragments are excluded from the page URL and referrer supplied to GA4.
+
+Before activation, disable Enhanced Measurement automatic page views/history events, outbound clicks, site search and form interactions in the GA4 web stream; the site supplies manual events. Review the published privacy text for the chosen configuration. Avoid installing a second tag through Netlify or a tag manager. Measurement-ID configuration alone does not confirm data delivery: verify Realtime/DebugView after deployment with an actual browser visit and booking click.
 
 ## Editorial follow-up
 

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { SERVICES } from "@/data/services";
 import { BUSINESS_INFO as b } from "@/data/business";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 export function ContactForm() {
   const [ready, setReady] = useState("");
   function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -18,6 +19,10 @@ export function ContactForm() {
       data.get("message");
     const url = b.contact.whatsappLink + "?text=" + encodeURIComponent(message);
     setReady(url);
+    if (e.nativeEvent.isTrusted) {
+      trackAnalyticsEvent("whatsapp_click");
+      trackAnalyticsEvent("booking_click");
+    }
     window.open(url, "_blank", "noopener,noreferrer");
   }
   return (

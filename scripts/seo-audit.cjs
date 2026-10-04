@@ -9,8 +9,12 @@ const canonicalRoot = process.env.CANONICAL_ORIGIN || root;
   const r=await fetch(root+path); const h=await r.text();
   const get=(re)=>h.match(re)?.[1] || '';
   const schemas=[...h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
-  const inspect=(value)=>{if(!value||typeof value!=='object')return;for(const [key,item]of Object.entries(value)){if(['aggregateRating','reviewCount','ratingValue','geo','openingHoursSpecification'].includes(key))schemaFailures.push(path+': unverified '+key);if(typeof item==='string'&&item.includes('{{'))schemaFailures.push(path+': placeholder '+key);if(key==='@id'&&typeof item==='string'&&!item.startsWith(canonicalRoot+'/'))schemaFailures.push(path+': wrong entity origin');inspect(item);}};
+  const inspect=(value)=>{if(!value||typeof value!=='object')return;for(const [key,item]of Object.entries(value)){if(['aggregateRating','reviewCount','ratingValue','geo'].includes(key))schemaFailures.push(path+': unverified '+key);if(typeof item==='string'&&item.includes('{{'))schemaFailures.push(path+': placeholder '+key);if(key==='@id'&&typeof item==='string'&&!item.startsWith(canonicalRoot+'/'))schemaFailures.push(path+': wrong entity origin');inspect(item);}};
   schemas.forEach(inspect);
+  const business = schemas.find(s=>s['@type']==='HealthAndBeautyBusiness');
+  const hours = business?.openingHoursSpecification || [];
+  const days = hours.flatMap(h=>(h.dayOfWeek||[]).map(d=>[d.split('/').pop(),h.opens,h.closes]));
+  if(days.length!==7 || new Set(days.map(d=>d[0])).size!==7 || days.some(([day,opens,closes])=>opens!==(day==='Friday'?'14:00':'10:00') || closes!=='22:00')) schemaFailures.push(path+': hours differ from published GBP schedule');
   if(schemas.filter(s=>s['@type']==='HealthAndBeautyBusiness').length!==1||schemas.some(s=>s['@id']?.endsWith('#organization')))schemaFailures.push(path+': business identity mismatch');
   for(const schema of schemas){if(schema.offers&&(!Number.isFinite(schema.offers.price)||schema.offers.priceCurrency!=='BDT'))schemaFailures.push(path+': invalid offer');if(schema['@type']==='FAQPage')for(const item of schema.mainEntity)if(!h.includes(item.name.replaceAll('&','&amp;'))||!h.includes(item.acceptedAnswer.text.replaceAll('&','&amp;')))schemaFailures.push(path+': FAQ not in HTML');}
   for(const m of h.matchAll(/href="(\/[^"#]*)/g))if(!m[1].startsWith('/_next')){const link=m[1].replaceAll('&amp;','&');links.add(link);const target=new URL(link,root).pathname;if(target!==path){if(!incoming.has(target))incoming.set(target,new Set());incoming.get(target).add(path);}}

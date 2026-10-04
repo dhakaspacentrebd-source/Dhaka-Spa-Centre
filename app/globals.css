@@ -420,6 +420,11 @@ a:hover {
   color: var(--muted);
   margin-top: 30px;
 }
+/* Slightly darker text only where the existing backgrounds failed contrast. */
+.treatments-section .eyebrow { color: #7d633e; }
+.editorial .eyebrow { color: #745b38; }
+.editorial p, .editorial .image-note { color: #656056; }
+.footer-grid p { color: #6b655b; }
 .choosing {
   padding: 100px 0;
 }

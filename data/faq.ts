@@ -42,7 +42,7 @@ export const FAQS: FAQItem[] = [
     category: "Booking",
     question: "When can I visit?",
     answer:
-      "Contact us to confirm opening hours and appointment availability for your preferred day before travelling.",
+      b.openingHours.display + " Confirm holiday hours and appointment availability before travelling.",
   },
   {
     id: "first",

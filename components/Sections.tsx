@@ -109,8 +109,7 @@ export function LocationBlock({ showMap = false }: { showMap?: boolean } = {}) {
           {b.address.neighborhood}, {b.address.city} {b.address.postalCode}
         </p>
         <p>
-          Contact us to confirm opening hours and your appointment before
-          travelling.
+          {b.openingHours.display} Confirm holiday hours and your appointment before travelling.
         </p>
         <div className="area-links">
           {["Gulshan", "Banani", "Baridhara"].map((n) => (

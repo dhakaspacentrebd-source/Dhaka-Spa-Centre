@@ -6,3 +6,9 @@
   NODE_VERSION = "22"
 
 # Netlify detects Next.js and installs its OpenNext adapter automatically.
+
+[[redirects]]
+  from = "https://dancing-froyo-291f10.netlify.app/*"
+  to = "https://dhakaspacentre.com/:splat"
+  status = 301
+  force = true

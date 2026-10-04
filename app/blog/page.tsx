@@ -3,7 +3,7 @@ import { BLOG_POSTS } from "@/data/blog";
 import { PageIntro } from "@/components/Sections";
 import { constructMetadata } from "@/lib/seo";
 export const metadata = constructMetadata({
-  title: "The Wellness Journal | Massage & Visit Guides",
+  title: "Wellness Journal | Massage & Visit Guides",
   description:
     "Practical guides to Thai massage, choosing a session and preparing for a spa visit in Dhaka and Gulshan 2.",
   path: "/blog",

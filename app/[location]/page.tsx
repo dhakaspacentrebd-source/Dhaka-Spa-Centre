@@ -10,6 +10,7 @@ import { constructMetadata } from "@/lib/seo";
 import { generateFAQSchema } from "@/lib/schema";
 import { QuickFacts } from "@/components/QuickFacts";
 import { VerifiedMap } from "@/components/VerifiedMap";
+import { LOCATION_SEARCH_DESCRIPTIONS } from "@/data/search-descriptions";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return LOCATIONS.map((l) => ({ location: l.slug }));
@@ -25,14 +26,14 @@ export async function generateMetadata({
     ? constructMetadata({
         title:
           l.slug === "spa-near-me"
-            ? "Find a Spa Near You | Gulshan 2 Directions"
+            ? "Spa Near Me | Gulshan 2 Directions"
             : "Spa " +
               (l.area === "Banani" || l.area === "Baridhara"
                 ? "near "
                 : "in ") +
               l.area +
               " | Visit Gulshan 2",
-        description: l.intro,
+        description: l.intro.length > 160 ? LOCATION_SEARCH_DESCRIPTIONS[l.slug] || l.intro : l.intro,
         path: "/" + l.slug,
       })
     : { title: "Page not found", robots: { index: false } };

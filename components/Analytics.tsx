@@ -1,6 +1,8 @@
 "use client";
-import { useEffect } from "react";
+import Script from "next/script";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { analyticsId, trackAnalyticsEvent } from "@/lib/analytics";
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
@@ -8,14 +10,19 @@ declare global {
 }
 export function Analytics() {
   const path = usePathname();
+  const [ready, setReady] = useState(false);
+  const lastPath = useRef<string | null>(null);
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_ENABLE_ANALYTICS !== "true") return;
+    if (!analyticsId || !ready) return;
     const track = (event: string, extra: Record<string, unknown> = {}) => {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event, path, ...extra });
+      trackAnalyticsEvent(event, extra as Record<string, string>);
     };
-    if (path.startsWith("/services/")) track("service_view");
-    if (path === "/prices") track("price_view");
+    if (lastPath.current !== path) {
+      lastPath.current = path;
+      track("page_view", { page_location: window.location.origin + path, page_title: document.title });
+      if (path.startsWith("/services/")) track("service_view");
+      if (path === "/prices") track("price_view");
+    }
     const click = (e: MouseEvent) => {
       if (!e.isTrusted) return;
       const target = e.target instanceof Element ? e.target.closest("a") : null;
@@ -37,6 +44,21 @@ export function Analytics() {
     };
     document.addEventListener("click", click);
     return () => document.removeEventListener("click", click);
-  }, [path]);
-  return null;
+  }, [path, ready]);
+  if (!analyticsId) return null;
+  return <>
+    <Script id="ga-bootstrap" strategy="afterInteractive" onReady={() => setReady(true)}>{`
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){window.dataLayer.push(arguments);};
+      window.gtag('js', new Date());
+      window.gtag('config', '${analyticsId}', {
+        send_page_view: false,
+        page_location: window.location.origin + window.location.pathname,
+        page_referrer: document.referrer ? document.referrer.split('?')[0].split('#')[0] : '',
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false
+      });
+    `}</Script>
+    <Script src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`} strategy="afterInteractive" />
+  </>;
 }

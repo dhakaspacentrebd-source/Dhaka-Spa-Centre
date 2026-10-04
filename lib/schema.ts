@@ -21,6 +21,12 @@ export function generateLocalBusinessSchema() {
       addressCountry: "BD",
     },
     areaServed: b.serviceAreas,
+    openingHoursSpecification: b.openingHours.schedule.map((hours) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: hours.dayOfWeek.map((day) => "https://schema.org/" + day),
+      opens: hours.opens,
+      closes: hours.closes,
+    })),
     sameAs: [b.telegramUrl, b.googleBusinessProfileUrl],
   };
 }

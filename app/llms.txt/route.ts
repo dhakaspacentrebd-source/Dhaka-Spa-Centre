@@ -15,7 +15,7 @@ export function GET() {
 - Phone: ${b.contact.phone}
 - Website: ${b.websiteUrl}/
 - Service areas: ${b.serviceAreas.join(", ")}. Banani and Baridhara are not branches.
-- Opening hours: not supplied; contact the team.
+- Opening hours: ${b.openingHours.display} Confirm holiday hours and appointment availability. Source: published Google Business Profile.
 - Booking: ${b.contact.whatsappLink}; ${b.telegramUrl}; ${b.contact.telLink}. Wait for appointment confirmation.
 - Google Business Profile: ${b.googleBusinessProfileUrl}
 
@@ -30,7 +30,7 @@ ${SERVICES.map(s=>`- [${s.name}](${b.websiteUrl}/services/${s.slug}): ${s.shortD
 ${[["Business facts","ai-facts"],["Services","services"],["Prices","prices"],["About","about"],["Contact","contact"],["FAQ","faq"],["Safety and consent questions","safety"],["Gulshan 2 location","spa-in-gulshan-2"],["Journal","blog"],["Privacy","privacy-policy"],["Terms","terms"]].map(([label,path])=>`- [${label}](${b.websiteUrl}/${path})`).join("\n")}
 
 ## Accuracy limits
-No verified opening hours, staff credentials, review counts, ratings, parking details, payment methods or detailed hygiene/cancellation policies have been supplied. Images are illustrative, not verified premises or staff photographs. Massage descriptions are for relaxation and comparison, not diagnosis or medical treatment claims.
+No verified staff credentials, review counts, ratings, parking details, payment methods or detailed hygiene/cancellation policies have been supplied. Images are illustrative, not verified premises or staff photographs. Massage descriptions are for relaxation and comparison, not diagnosis or medical treatment claims.
 `;
   return new Response(text, {headers: {"Content-Type":"text/plain; charset=utf-8"}});
 }

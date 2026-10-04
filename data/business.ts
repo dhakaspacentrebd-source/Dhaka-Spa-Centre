@@ -24,7 +24,14 @@ export const BUSINESS_INFO = {
       ),
   },
   telegramUrl: "https://t.me/dhakaspacenter",
-  openingHours: null,
+  openingHours: {
+    display: "Saturday–Thursday: 10 AM–10 PM; Friday: 2 PM–10 PM (Asia/Dhaka).",
+    schedule: [
+      { dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"], opens: "10:00", closes: "22:00" },
+      { dayOfWeek: ["Friday"], opens: "14:00", closes: "22:00" },
+    ],
+    source: "https://share.google/LzwDmmK6zuq0frEmI",
+  },
   geo: null,
   serviceAreas: ["Gulshan", "Banani", "Baridhara", "Dhaka"],
   googleBusinessProfileUrl: "https://share.google/LzwDmmK6zuq0frEmI",

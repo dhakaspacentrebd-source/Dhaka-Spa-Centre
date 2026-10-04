@@ -14,6 +14,7 @@ import { constructMetadata } from "@/lib/seo";
 import { generateServiceSchema, generateFAQSchema } from "@/lib/schema";
 import { SESSION_GUIDES } from "@/data/session-guides";
 import { QuickFacts } from "@/components/QuickFacts";
+import { SERVICE_SEARCH_DESCRIPTIONS } from "@/data/search-descriptions";
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
 }
@@ -27,7 +28,9 @@ export async function generateMetadata({
   return s
     ? constructMetadata({
         title: s.name + " in Dhaka",
-        description: s.shortDescription + " Enquire in Gulshan 2.",
+        description: (s.shortDescription + " Enquire in Gulshan 2.").length > 160
+          ? SERVICE_SEARCH_DESCRIPTIONS[s.slug] || s.shortDescription
+          : s.shortDescription + " Enquire in Gulshan 2.",
         path: "/services/" + s.slug,
       })
     : { title: "Treatment not found", robots: { index: false } };
@@ -60,6 +63,7 @@ export default async function Page({
             <div className="detail-image">
               <Image
                 src={s.image}
+                quality={s.slug === "thai-massage" ? 65 : 75}
                 alt={s.imageAlt}
                 fill
                 loading="eager"
