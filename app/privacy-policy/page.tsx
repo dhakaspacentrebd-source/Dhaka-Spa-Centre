@@ -16,7 +16,7 @@ const blocks = [
   ],
   [
     "Analytics and external services",
-    "Analytics event tracking is disabled by default. The optional configuration records interaction categories and page paths, not the contents of your form. External services, including WhatsApp, Telegram and Google Maps, apply their own privacy policies.",
+    "This website uses Google Analytics 4 to understand page visits and booking, call and direction clicks. Google may process browser and device information, approximate location and cookie identifiers. Our event tracking excludes booking form text, WhatsApp message contents and URL query strings. Google signals and advertising personalization are disabled. WhatsApp, Telegram and Google Maps apply their own privacy policies.",
   ],
   [
     "Questions and requests",
@@ -39,6 +39,11 @@ export default function Page() {
             <p>{p}</p>
           </section>
         ))}
+        <p>
+          <a className="text-link" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses information from this website</a>
+          {" · "}
+          <a className="text-link" href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics browser opt-out</a>
+        </p>
       </section>
     </>
   );

@@ -1,8 +1,11 @@
 "use client";
 import Script from "next/script";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { analyticsId, trackAnalyticsEvent } from "@/lib/analytics";
+import { analyticsHost, analyticsId, trackAnalyticsEvent } from "@/lib/analytics";
+const subscribeToHost = () => () => {};
+const matchesProductionHost = () => window.location.hostname === analyticsHost && window.location.protocol === "https:";
+const serverHostSnapshot = () => false;
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
@@ -10,6 +13,7 @@ declare global {
 }
 export function Analytics() {
   const path = usePathname();
+  const hostMatches = useSyncExternalStore(subscribeToHost, matchesProductionHost, serverHostSnapshot);
   const [ready, setReady] = useState(false);
   const lastPath = useRef<string | null>(null);
   useEffect(() => {
@@ -45,11 +49,18 @@ export function Analytics() {
     document.addEventListener("click", click);
     return () => document.removeEventListener("click", click);
   }, [path, ready]);
-  if (!analyticsId) return null;
+  if (!analyticsId || !hostMatches) return null;
   return <>
     <Script id="ga-bootstrap" strategy="afterInteractive" onReady={() => setReady(true)}>{`
       window.dataLayer = window.dataLayer || [];
       window.gtag = function(){window.dataLayer.push(arguments);};
+      window.gtag('consent', 'default', {
+        ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted'
+      });
+      window.gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']
+      });
       window.gtag('js', new Date());
       window.gtag('config', '${analyticsId}', {
         send_page_view: false,
