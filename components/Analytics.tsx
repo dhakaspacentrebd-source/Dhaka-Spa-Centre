@@ -70,6 +70,6 @@ export function Analytics() {
         allow_ad_personalization_signals: false
       });
     `}</Script>
-    <Script src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`} strategy="afterInteractive" />
+    <Script src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`} strategy="lazyOnload" />
   </>;
 }
